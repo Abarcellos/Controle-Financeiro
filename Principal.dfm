@@ -4,7 +4,7 @@ object DarkControl: TDarkControl
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSizeToolWin
   Caption = 'Dark Control 1.0'
-  ClientHeight = 500
+  ClientHeight = 480
   ClientWidth = 692
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
