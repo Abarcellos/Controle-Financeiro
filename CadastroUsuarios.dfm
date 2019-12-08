@@ -117,21 +117,21 @@ object Usuarios: TUsuarios
     Left = 110
     Top = 28
     Width = 248
-    Height = 20
+    Height = 21
     TabOrder = 1
   end
   object EditLogin: TEdit
     Left = 111
     Top = 77
     Width = 120
-    Height = 20
+    Height = 21
     TabOrder = 2
   end
   object EditSenha: TEdit
     Left = 237
     Top = 77
     Width = 95
-    Height = 20
+    Height = 21
     TabOrder = 3
   end
   object ButtonGravar: TButton
@@ -154,11 +154,9 @@ object Usuarios: TUsuarios
     Top = 128
     Width = 121
     Height = 21
-    ItemIndex = 2
     TabOrder = 4
     Text = 'Root'
     Items.Strings = (
-      'Administrador'
       'Usuario'
       'Root')
   end
