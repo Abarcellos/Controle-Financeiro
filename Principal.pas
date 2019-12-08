@@ -76,7 +76,8 @@ type
     { Private declarations }
   public
     { Public declarations }
-
+     usuLogado : integer;
+     TipoUsuLogado : integer;
 
 
   end;
@@ -140,9 +141,13 @@ begin
      end;
    ShowModal;
    LabelUsuarioLogado.Caption := FDQuery1.FieldByName('CODIGO').AsString +' - '+FDQuery1.FieldByName('NOME_USUARIO').AsString;
-   if FDQuery1.FieldByName('TIPO').AsInteger <> 2 then
-
-    MainMenu1.Items.Items[1].Visible := false;
+   TipoUsuLogado := FDQuery1.FieldByName('TIPO').AsInteger;
+   // verificando se o usuario e root
+   if FDQuery1.FieldByName('TIPO').AsInteger <> 1 then
+     begin
+        MainMenu1.Items.Items[1].Visible := false;
+        ButtonGravar.Visible := false;
+     end;
    end;
 
 
@@ -156,6 +161,7 @@ begin
 
   With TUsuarios.Create(nil) do
   begin
+    usuLogado :=  FDQuery1.FieldByName('CODIGO').AsInteger;
     ShowModal;
   end;
 
@@ -302,8 +308,13 @@ end;
   //ABRE BAIXAS
 procedure TDarkControl.DBGridPrincipalDblClick(Sender: TObject);
 begin
-    codLancamento := FDQuery1.FieldByName('CODIGO').AsInteger;
+    if TipoUsuLogado <> 1 then
+    begin
+      ShowMessage('Usuario sem permissão');
+      exit
+    end;
 
+    codLancamento := FDQuery1.FieldByName('CODIGO').AsInteger;
     if (FDQuery1.FieldByName('PAGO').AsString = 'T') then
     begin
       ShowMessage('Essa conta ja foi paga!');
