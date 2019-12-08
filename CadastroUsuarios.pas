@@ -39,6 +39,7 @@ type
 var
   Usuarios: TUsuarios;
   passvisi : integer;
+  usuSelecionado : integer;
 
 implementation
    uses principal;
@@ -70,7 +71,6 @@ begin
   case x of
   0 : ComboBoxTipo.ItemIndex := 0;
   1 : ComboBoxTipo.ItemIndex := 1;
-  2 : ComboBoxTipo.ItemIndex := 2;
   end;
 end;
 
@@ -79,7 +79,6 @@ begin
   case x of
   0 : result := 0;
   1 : result := 1;
-  2 : result := 2;
   end;
 end;
 
@@ -92,6 +91,12 @@ begin
   EditSenha.PasswordChar := '*';
   SelectNaTabela;
   passvisi := 1;
+
+  if (DarkControl.FDQuery1.FieldByName('TIPO').AsInteger <> 1) then
+  begin
+    Image1.Visible := false;
+    ButtonGravar.Visible := false;
+  end;
 end;
 
 procedure TUsuarios.DBGrid1CellClick(Column: TColumn);
@@ -107,6 +112,7 @@ begin
   ButtonGravar.Caption := 'Editar';
   EditSenha.PasswordChar := '*';
   passvisi := 1;
+
 end;
 
 procedure TUsuarios.ButtonNovoClick(Sender: TObject);
