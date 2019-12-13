@@ -70,7 +70,7 @@ object Usuarios: TUsuarios
   end
   object Image1: TImage
     Left = 339
-    Top = 77
+    Top = 78
     Width = 20
     Height = 20
     Picture.Data = {
