@@ -38,7 +38,7 @@ type
 
 var
   Usuarios: TUsuarios;
-  passvisi : integer;
+  passvisi : boolean;
   usuSelecionado : integer;
 
 implementation
@@ -90,7 +90,7 @@ procedure TUsuarios.FormCreate(Sender: TObject);
 begin
   EditSenha.PasswordChar := '*';
   SelectNaTabela;
-  passvisi := 1;
+  passvisi := false;
 
   if (DarkControl.FDQuery1.FieldByName('TIPO').AsInteger <> 1) then
   begin
@@ -111,7 +111,7 @@ begin
   EscolherTipo(DarkControl.FDQuery1.FieldByName('TIPO').AsInteger);
   ButtonGravar.Caption := 'Editar';
   EditSenha.PasswordChar := '*';
-  passvisi := 1;
+  passvisi := false;
 
 end;
 
@@ -126,14 +126,17 @@ end;
  // ALTERA MASCARA DO CAMPO DE SENHA PARA VISIVEL OU NÃO.
 procedure TUsuarios.Image1Click(Sender: TObject);
 begin
- if passvisi = 1 then
-  EditSenha.PasswordChar := #0 else
+  if not(passvisi) then
   begin
-  EditSenha.PasswordChar := '*';
-  passvisi := 1;
+    EditSenha.PasswordChar := #0;
+    passvisi := true;
+  end
+  else
+  begin
+    EditSenha.PasswordChar := '*';;
+    passvisi := false;
   end;
- if EditSenha.PasswordChar = #0 then
-  passvisi := 0;
+
 end;
 
 procedure TUsuarios.ButtonGravarClick(Sender: TObject);
