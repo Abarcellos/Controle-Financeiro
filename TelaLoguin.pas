@@ -27,18 +27,17 @@ type
     procedure FormCreate(Sender: TObject);
     function UsuarioLogado (u :String): string;
     procedure ImageLoguinClick(Sender: TObject);
+    procedure EditSenhaKeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure EditLoguinKeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
 
 
   private
     { Private declarations }
   public
     { Public declarations }
-
-
-
   end;
-
-
 
 
 var
@@ -69,34 +68,50 @@ begin
  end;
 end;
 
-////     DarkControl.FDQuery1.FieldByName('NOME_USUARIO').AsString
-
+//    DarkControl.FDQuery1.FieldByName('NOME_USUARIO').AsString
 
 
 procedure TLoguin.EditLoguinExit(Sender: TObject);
 begin
 //
-
-
-
 end;
 
+procedure TLoguin.EditLoguinKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+ if KEY = VK_RETURN then
+ EditSenha.SetFocus;
+end;
 
 procedure TLoguin.EditSenhaExit(Sender: TObject);
 begin
  if ValidacaoUsuario(EditLoguin.Text, EditSenha.Text) then
- Close
- else
- begin
-   ShowMessage('Usuario ou senha Invalidos!!!');
-   EditLoguin.SetFocus;
- end;
+  Close
+  else
+  begin
+    ShowMessage('Usuario ou senha Invalidos!!!');
+    EditLoguin.SetFocus;
+  end;
 end;
 
+ // capturar evento de click do teclado.
+procedure TLoguin.EditSenhaKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if Key = VK_RETURN then
+  begin
+   if ValidacaoUsuario(EditLoguin.Text, EditSenha.Text) then
+      Close
+     else
+     begin
+      ShowMessage('Usuario ou senha Invalidos!!!');
+      EditLoguin.SetFocus;
+     end;
+  end;
+end;
 
 procedure TLoguin.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
-
   ShowMessage('Seja bem vindo ao Seu controle Financeiro ' + UsuarioLogado(EditLoguin.Text));
  if (EditSenha.Text = '') or (EditLoguin.Text = '') or (ValidacaoUsuario(EditLoguin.Text, EditSenha.Text) = false) then
  begin
@@ -113,7 +128,7 @@ end;
 
 procedure TLoguin.ImageLoguinClick(Sender: TObject);
 begin
-Application.Terminate
+ Application.Terminate
 end;
 
 end.
