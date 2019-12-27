@@ -70,7 +70,7 @@ object Usuarios: TUsuarios
   end
   object Image1: TImage
     Left = 339
-    Top = 78
+    Top = 77
     Width = 20
     Height = 20
     Picture.Data = {
@@ -88,6 +88,32 @@ object Usuarios: TUsuarios
       FBF71E5D9F3308020558D755E823B3A78B893E621FBD04969CF73D91DFF7FAFF
       AED007F32B2C602B8C2AD80000000049454E44AE426082}
     OnClick = Image1Click
+  end
+  object LabelAtivo: TLabel
+    Left = 267
+    Top = 6
+    Width = 40
+    Height = 16
+    Caption = 'Ativo:'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Tahoma'
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object LabelAtivoSimNao: TLabel
+    Left = 313
+    Top = 6
+    Width = 22
+    Height = 16
+    Caption = 'Sim'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Tahoma'
+    Font.Style = [fsBold]
+    ParentFont = False
   end
   object DBGrid1: TDBGrid
     Left = 4
@@ -135,9 +161,9 @@ object Usuarios: TUsuarios
     TabOrder = 3
   end
   object ButtonGravar: TButton
-    Left = 295
+    Left = 237
     Top = 128
-    Width = 64
+    Width = 122
     Height = 23
     Caption = 'Gravar'
     Font.Charset = DEFAULT_CHARSET
@@ -161,9 +187,9 @@ object Usuarios: TUsuarios
       'Root')
   end
   object ButtonNovo: TButton
-    Left = 238
-    Top = 128
-    Width = 52
+    Left = 237
+    Top = 104
+    Width = 46
     Height = 23
     Caption = 'Novo'
     Font.Charset = DEFAULT_CHARSET
@@ -174,5 +200,20 @@ object Usuarios: TUsuarios
     ParentFont = False
     TabOrder = 6
     OnClick = ButtonNovoClick
+  end
+  object ButtonExcluir: TButton
+    Left = 289
+    Top = 104
+    Width = 70
+    Height = 23
+    Caption = 'Desativar'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Tahoma'
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 7
+    OnClick = ButtonExcluirClick
   end
 end
