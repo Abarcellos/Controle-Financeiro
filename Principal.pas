@@ -318,7 +318,6 @@ begin
     if (FDQuery1.FieldByName('PAGO').AsString = 'T') then
     begin
       ShowMessage('Essa conta ja foi paga!');
-      //MessageDlg('Essa conta ja foi paga!',' Deseja prossegir',sim );
     end;
 
    with TFormConsultaBaixas.Create(self) do
