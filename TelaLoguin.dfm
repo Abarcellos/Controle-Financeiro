@@ -215,6 +215,7 @@ object Loguin: TLoguin
     CharCase = ecUpperCase
     TabOrder = 0
     OnExit = EditLoguinExit
+    OnKeyDown = EditLoguinKeyDown
   end
   object EditSenha: TEdit
     Left = 105
@@ -223,5 +224,6 @@ object Loguin: TLoguin
     Height = 21
     TabOrder = 1
     OnExit = EditSenhaExit
+    OnKeyDown = EditSenhaKeyDown
   end
 end
