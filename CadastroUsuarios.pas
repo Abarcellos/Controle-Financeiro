@@ -21,6 +21,9 @@ type
     LabelTipo: TLabel;
     ButtonNovo: TButton;
     Image1: TImage;
+    ButtonExcluir: TButton;
+    LabelAtivo: TLabel;
+    LabelAtivoSimNao: TLabel;
     procedure FormCreate(Sender: TObject);
     procedure ButtonGravarClick(Sender: TObject);
     procedure DBGrid1CellClick(Column: TColumn);
@@ -29,6 +32,7 @@ type
     procedure EscolherTipo(x :integer);
     function GravarTipo(x :integer) : integer;
     procedure Image1Click(Sender: TObject);
+    procedure ButtonExcluirClick(Sender: TObject);
 
   private
     { Private declarations }
@@ -38,7 +42,7 @@ type
 
 var
   Usuarios: TUsuarios;
-  passvisi : boolean;
+  passvisi : integer;
   usuSelecionado : integer;
 
 implementation
@@ -90,8 +94,8 @@ procedure TUsuarios.FormCreate(Sender: TObject);
 begin
   EditSenha.PasswordChar := '*';
   SelectNaTabela;
-  passvisi := false;
-
+  passvisi := 1;
+  LabelAtivoSimNao.Caption := '*';
   if (DarkControl.FDQuery1.FieldByName('TIPO').AsInteger <> 1) then
   begin
     Image1.Visible := false;
@@ -109,9 +113,19 @@ begin
   EditLogin.Text := DarkControl.FDQuery1.FieldByName('LOGUIN').AsString;
   EditSenha.Text := DarkControl.FDQuery1.FieldByName('SENHA').AsString;
   EscolherTipo(DarkControl.FDQuery1.FieldByName('TIPO').AsInteger);
+  if DarkControl.FDQuery1.FieldByName('ATIVO').AsString = 'T' then
+  begin
+    LabelAtivoSimNao.Caption := 'Sim';
+    ButtonExcluir.Caption := 'Desativa';
+  end
+  else
+  begin
+   LabelAtivoSimNao.Caption := 'Não';
+   ButtonExcluir.Caption := 'Ativar';
+  end;
   ButtonGravar.Caption := 'Editar';
   EditSenha.PasswordChar := '*';
-  passvisi := false;
+  passvisi := 1;
 
 end;
 
@@ -126,15 +140,44 @@ end;
  // ALTERA MASCARA DO CAMPO DE SENHA PARA VISIVEL OU NÃO.
 procedure TUsuarios.Image1Click(Sender: TObject);
 begin
-  if not(passvisi) then
+ if passvisi = 1 then
+  EditSenha.PasswordChar := #0 else
   begin
-    EditSenha.PasswordChar := #0;
-    passvisi := true;
+  EditSenha.PasswordChar := '*';
+  passvisi := 1;
+  end;
+ if EditSenha.PasswordChar = #0 then
+  passvisi := 0;
+end;
+
+procedure TUsuarios.ButtonExcluirClick(Sender: TObject);
+var
+cod : integer;
+aux : string;
+mensagem : string;
+begin
+  cod := DarkControl.FDQuery1.FieldByName('CODIGO').AsInteger;
+
+  if LabelAtivoSimNao.Caption = 'Sim' then
+  begin
+    aux := 'F';
+    mensagem := 'Usuario Desativado';
   end
   else
   begin
-    EditSenha.PasswordChar := '*';;
-    passvisi := false;
+    aux := 'T';
+    mensagem := 'Usuario Ativado';
+  end;
+
+  with DarkControl.FDQuery1 do
+  begin
+    OpenOrExecute;
+    SQL.Text := 'UPDATE USUARIOS SET USUARIOS.ATIVO = :aux WHERE USUARIOS.codigo = :cod';
+    ParamByName('cod').AsInteger := cod;
+    ParamByName('aux').AsString := aux;
+    ExecSQL;
+    ShowMessage(mensagem);
+    SelectNaTabela;
   end;
 
 end;
@@ -155,6 +198,7 @@ begin
       fieldByName('LOGUIN'      ).AsString  := EditLogin.Text;
       fieldByName('SENHA'       ).AsString  := EditSenha.Text;
       fieldByName('TIPO'        ).AsInteger := GravarTipo(ComboBoxTipo.ItemIndex);
+      FieldByName('ATIVO'       ).AsString  := 'T';
       Post;
       ShowMessage('Usuario cadastrado com sucesso');
       LimpatrEdits;
