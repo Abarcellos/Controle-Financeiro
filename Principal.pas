@@ -204,7 +204,7 @@ begin
              ' |                                        '       +#13+
              ' | '                                              +#13+
              ' |Versão 1.0                 '                    +#13+
-             ' |Compilado em: 25/11/2019'                       +#13+
+             ' |Primeira versão: 25/11/2019            '        +#13+
              ' |Desenvolvido por: Arthur Barcellos Lima'        +#13+
              ' |Contato: + 55 27 99861 2892                       ');
 end;
