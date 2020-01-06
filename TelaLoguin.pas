@@ -58,18 +58,24 @@ begin
 end;
 
 function TLoguin.ValidacaoUsuario(u, s : string): boolean;
+var
+senha: string;
 begin
  with DarkControl.FDQuery1 do
  begin
-   if (Locate('LOGUIN', u, [])) and (Locate('SENHA', s, [])) then
-   result := true
+   if (Locate('LOGUIN', u, [])) then
+    senha := FieldByName('SENHA').AsString;
+    showmessage(senha);
+    if senha = s then
+     begin
+      result := true
+     end
    else
    result := false ;
  end;
 end;
 
 //    DarkControl.FDQuery1.FieldByName('NOME_USUARIO').AsString
-
 
 procedure TLoguin.EditLoguinExit(Sender: TObject);
 begin
@@ -123,8 +129,6 @@ procedure TLoguin.FormCreate(Sender: TObject);
 begin
  EditSenha.PasswordChar := '*';
 end;
-
-
 
 procedure TLoguin.ImageLoguinClick(Sender: TObject);
 begin
